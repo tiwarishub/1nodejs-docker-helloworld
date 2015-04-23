@@ -1,0 +1,14 @@
+{
+    "name": "nodejs-docker-helloworld",
+    "private": true,
+    "version": "0.0.1",
+    "description": "hello world in nodejs on docker",
+    "author": "Bernhard Widtmann <bernhard.widtmann@maxdome.de>",
+    "dependencies": {
+        "express": "3.2.4",
+        "forever": "^0.14.1"
+    },
+    "scripts": {
+        "start": "npm install && ./node_modules/forever/bin/forever -w app.js"
+    }
+}
