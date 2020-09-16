@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: "-a905"
+    labels:
+        app: "-a905"
+spec:
+    type: LoadBalancer
+    ports:
+    - port: {&quot;port&quot;:&quot;8080&quot;,&quot;protocol&quot;:&quot;tcp&quot;}
+      targetPort: {&quot;port&quot;:&quot;8080&quot;,&quot;protocol&quot;:&quot;tcp&quot;}
+      protocol: TCP
+      name: http
+    selector:
+        app: "-a905"
