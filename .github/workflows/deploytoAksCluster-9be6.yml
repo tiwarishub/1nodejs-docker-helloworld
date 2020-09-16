@@ -8,7 +8,7 @@ jobs:
     
     - uses: azure/login@v1
       with:
-        creds: $
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Create ACR
       id: create-acr
