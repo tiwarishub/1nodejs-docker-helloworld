@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "-35e6"
+spec:
+  selector:
+    matchLabels: "-35e6"
+      app: ""
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "-35e6"
+    spec:
+      containers:
+        - name: "-35e6"
+          image: "diaggarwtest.azurecr.io/0a3e"
+          ports:
+          - containerPort: {&quot;port&quot;:&quot;8080&quot;,&quot;protocol&quot;:&quot;tcp&quot;}
