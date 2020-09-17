@@ -8,7 +8,7 @@ jobs:
     
     - uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: ${{ secrets.AZURE_CREDENTIALS_GITHUB_SECRET }}
 
     - name: Create ACR
       id: create-acr
