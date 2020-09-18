@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: "aaaaatiwarishubaks-4d05"
+    labels:
+        app: "aaaaatiwarishubaks-4d05"
+spec:
+    type: LoadBalancer
+    ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+      name: http
+    selector:
+        app: "aaaaatiwarishubaks-4d05"
