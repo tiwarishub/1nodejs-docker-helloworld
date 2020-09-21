@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: aaaaatiwarishubaks
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: aaaaatiwarishubaks
+    spec:
+      containers:
+        - name: aaaaatiwarishubaks
+          image: diaggarwregistry.azurecr.io/aaaaatiwarishubaks
+          ports:
+          - containerPort: 8080
