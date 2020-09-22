@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    name: "aaaaabugbashprovsvc-be09"
+    labels:
+        app: "aaaaabugbashprovsvc-be09"
+    annotations:
+        kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+    rules:
+        - host: aaaaabugbashprovsvc30bb-aaaaabugbashprovsvc-be09.0e880b7a3d6146ada3ab.eastus.aksapp.io
+          http:
+            paths:
+            - path: /
+              backend:
+                serviceName: "aaaaabugbashprovsvc-be09"
+                servicePort: 8080
