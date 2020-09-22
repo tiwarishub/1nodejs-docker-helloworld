@@ -1,0 +1,64 @@
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    
+    - uses: actions/checkout@master
+    
+    - uses: azure/login@v1
+      with:
+        creds: ${{secrets.AZURE_CREDENTIALS_GITHUB_SECRET}}
+
+    - name: Create ACR
+      id: create-acr
+      run: |
+        az acr create -n diaggarwacrn2 -g diaggarwacrn2b2e2-rg --location "North Central US" --sku Basic --admin-enabled
+        echo "::set-output name=acr_username::`az acr credential show -n diaggarwacrn2 --query username | xargs`"
+        echo "::set-output name=acr_password::`az acr credential show -n diaggarwacrn2 --query passwords[0].value | xargs`"
+        echo "::add-mask::`az acr credential show -n diaggarwacrn2 --query passwords[0].value | xargs`"
+
+    - uses: azure/docker-login@v1
+      with:
+        login-server: diaggarwacrn2.azurecr.io
+        username: ${{steps.create-acr.outputs.acr_username}}
+        password: ${{steps.create-acr.outputs.acr_password}}
+
+    - name: Build and push image to ACR
+      id: build-image
+      run: |
+        docker build "$GITHUB_WORKSPACE/." -f  "Dockerfile" -t diaggarwacrn2.azurecr.io/diaggarw8d1d:${{github.sha}}
+        docker push diaggarwacrn2.azurecr.io/diaggarw8d1d:${{github.sha}}
+    
+    - uses: azure/k8s-set-context@v1
+      id: login
+      with:
+         kubeconfig: ${{secrets.aks_diaggarw_kubeConfig}}
+    
+    - name: Create namespace
+      run: |
+        namespacePresent=`kubectl get namespace | grep diaggarw9f7a | wc -l`
+        if [ $namespacePresent -eq 0 ]
+        then
+            echo `kubectl create namespace diaggarw9f7a`
+        fi
+
+    - uses: azure/k8s-create-secret@v1
+      with:
+        namespace: diaggarw9f7a
+        container-registry-url: diaggarwacrn2.azurecr.io
+        container-registry-username: ${{steps.create-acr.outputs.acr_username}}
+        container-registry-password: ${{steps.create-acr.outputs.acr_password}}
+        secret-name: diaggarwdockerauth
+       
+    - uses: azure/k8s-deploy@v1
+      with:
+        namespace: diaggarw9f7a
+        manifests: |
+          manifests/deployment-7cc2.yml
+          manifests/service-7cc2.yml
+          manifests/ingress-7cc2.yml
+        images: |
+          diaggarwacrn2.azurecr.io/diaggarw8d1d:${{github.sha}}
+        imagepullsecrets: |
+          diaggarwdockerauth
