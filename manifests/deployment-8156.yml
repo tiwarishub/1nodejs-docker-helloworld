@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "aaaaabugbashProvSvc-91a9"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "aaaaabugbashProvSvc-91a9"
+  template:
+    metadata:
+      labels:
+        app: "aaaaabugbashProvSvc-91a9"
+    spec:
+      containers:
+        - name: "aaaaabugbashProvSvc-91a9"
+          image: "diaggarwregistry.azurecr.io/aaaaabugbashProvSvc59b9"
+          ports:
+          - containerPort: 8080
