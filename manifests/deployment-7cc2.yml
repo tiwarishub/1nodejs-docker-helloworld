@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "diaggarw-bb00"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "diaggarw-bb00"
+  template:
+    metadata:
+      labels:
+        app: "diaggarw-bb00"
+    spec:
+      containers:
+        - name: "diaggarw-bb00"
+          image: "diaggarwacrn2.azurecr.io/diaggarw8d1d"
+          ports:
+          - containerPort: 8080
