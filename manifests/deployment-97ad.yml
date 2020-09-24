@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "aaaaabugbashprovsvcrouting-65ec"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "aaaaabugbashprovsvcrouting-65ec"
+  template:
+    metadata:
+      labels:
+        app: "aaaaabugbashprovsvcrouting-65ec"
+    spec:
+      containers:
+        - name: "aaaaabugbashprovsvcrouting-65ec"
+          image: "diaggarwregistry.azurecr.io/aaaaabugbashprovsvcroutingc0c3"
+          ports:
+          - containerPort: 8080
