@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "aaaaabugbashprovsvc-43b0"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "aaaaabugbashprovsvc-43b0"
+  template:
+    metadata:
+      labels:
+        app: "aaaaabugbashprovsvc-43b0"
+    spec:
+      containers:
+        - name: "aaaaabugbashprovsvc-43b0"
+          image: "aaaaaatiwaishubacr7.azurecr.io/aaaaabugbashprovsvcac22"
+          ports:
+          - containerPort: 8080
