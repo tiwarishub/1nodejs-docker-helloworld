@@ -1,9 +1,0 @@
-on: [push]
- jobs:
-  build:
-   env:
-     key1: ${{secrets.test2}}
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - run: echo $key1
